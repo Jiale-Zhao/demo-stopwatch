@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>vue-clocker</title>
+    <!-- Vuejs -->
+    <script src="./public/javascript/vue.min.js"></script>
+    <!-- css -->
+    <link rel="stylesheet" href="./public/stylesheet/index.css" />
+  </head>
+  <body>
+    <div id="root" class="container">
+      <h1>
+        Web Stopwatch
+        <h5>by Jiale-Zhao</h5>
+      </h1>
+      <h5>A simple and easy to use web clocker app!</h5>
+      <h2>{{second}}.{{oneHundredthSecond}}</h2>
+      <div class="buttons">
+        <input
+          type="button"
+          value="START"
+          :disabled="isDisabled"
+          @click="start"
+        />
+        <input type="button" value="STOP" @click="stop" />
+        <input type="button" value="RESTART" @click="restart" />
+        <input type="button" value="NOTE" @click="note" />
+        <input type="button" value="CLEAR NOTES" @click="clearNotes" />
+      </div>
+      <div id="notes"></div>
+    </div>
+
+    <script>
+      console.log(
+        "im so glad that you can watch my piece, this is a simple and easy stopwatch demo and hope you can enjoy! \nif you meet some problems or you have something want to tell me, you can send email to me!\n My Email address: 3023562963@qq.com"
+      )
+
+      var hts = 0
+      var s = 0
+      var time = 0
+      const MS = 10
+
+      var vm = new Vue({
+        el: "#root",
+        data: {
+          oneHundredthSecond: "0" + hts.toString(),
+          isDisabled: false,
+          second: s,
+        },
+        methods: {
+          start: function () {
+            time = setInterval(function () {
+              vm.oneHundredthSecond++
+              if (vm.oneHundredthSecond < 10) {
+                vm.oneHundredthSecond = "0" + vm.oneHundredthSecond.toString()
+              }
+              if (vm.oneHundredthSecond == 99) {
+                vm.second++
+                vm.oneHundredthSecond = 0
+              }
+              vm.isDisabled = true
+            }, MS)
+          },
+          stop: function () {
+            clearInterval(time)
+            vm.isDisabled = false
+          },
+          restart: function () {
+            clearInterval(time)
+            vm.oneHundredthSecond = "0" + hts.toString()
+            vm.second = 0
+            vm.isDisabled = false
+          },
+          note: function () {
+            var noteNode = document.createElement("div")
+            var contentOfNote = document.createTextNode(
+              vm.second.toString() + "." + vm.oneHundredthSecond.toString()
+            )
+            noteNode.appendChild(contentOfNote)
+            var notesNode = document.getElementById("notes")
+            notesNode.appendChild(noteNode)
+          },
+          clearNotes: function () {
+            var notesNode = document.getElementById("notes")
+            notesNode.innerHTML = ""
+          },
+        },
+      })
+    </script>
+  </body>
+</html>

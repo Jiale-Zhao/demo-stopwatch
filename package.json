@@ -1,0 +1,11 @@
+{
+  "name": "vue-stopwatch",
+  "version": "1.0.0",
+  "description": "A very simple and easy web stopwatch app with Vuejs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Jiale-Zhao",
+  "license": "ISC"
+}
